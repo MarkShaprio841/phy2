@@ -14,7 +14,11 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/')
-def index():
+def home():
+    return render_template('home.html')
+
+@app.route('/articles')
+def articles():
     files = os.listdir(app.config['UPLOAD_FOLDER'])
     articles = []
     for file in files:
@@ -28,7 +32,23 @@ def index():
         except Exception as e:
             preview = "Could not generate preview."
         articles.append({'filename': file, 'preview': preview})
-    return render_template('index.html', articles=articles)
+    return render_template('articles.html', articles=articles)
+
+@app.route('/full_index')
+def full_index():
+    files = os.listdir(app.config['UPLOAD_FOLDER'])
+    articles = []
+    for file in files:
+        full_text = ""
+        try:
+            with open(os.path.join(app.config['UPLOAD_FOLDER'], file), 'rb') as f:
+                reader = PdfReader(f)
+                for page in reader.pages:
+                    full_text += page.extract_text() + "\n\n"
+        except Exception as e:
+            full_text = "Could not extract full text."
+        articles.append({'filename': file, 'full_text': full_text})
+    return render_template('full_index.html', articles=articles)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -41,7 +61,7 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('index'))
+            return redirect(url_for('articles'))
     return render_template('upload.html')
 
 @app.route('/uploads/<filename>')
