@@ -9,6 +9,13 @@
 <body>
     <header>
         <h1>The Celery</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('full_index') }}">Full Content Index</a></li>
+                <li><a href="{{ url_for('upload_file') }}">Upload New Article</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
         <section class="articles">

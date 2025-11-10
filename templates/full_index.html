@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Index - The Celery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Full Content Index</h1>
+    </header>
+    <main>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+        <section class="articles">
+            {% for article in articles %}
+                <article>
+                    <h2>{{ article.filename }}</h2>
+                    <pre>{{ article.full_text }}</pre>
+                </article>
+                <hr>
+            {% endfor %}
+        </section>
+    </main>
+</body>
+</html>
