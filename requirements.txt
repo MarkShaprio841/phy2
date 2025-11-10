@@ -1,4 +1,4 @@
 flask
 werkzeug
 PyPDF2
-netlify-functions
+aws-wsgi
