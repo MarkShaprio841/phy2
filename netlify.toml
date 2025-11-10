@@ -3,6 +3,9 @@
   functions = "netlify/functions"
   publish = "static"
 
+[functions]
+  included_files = ["app.py", "templates/**", "uploads/**"]
+
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/main"
