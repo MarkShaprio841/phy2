@@ -1,0 +1,18 @@
+# Flask
+instance/
+.webassets-cache
+/static/dist
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+*.log
+
+# Uploads
+uploads/
+
+# Test files
+test.pdf
