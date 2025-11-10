@@ -3,8 +3,17 @@ from werkzeug.utils import secure_filename
 import os
 from PyPDF2 import PdfReader
 
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'uploads'
+# Get the absolute path of the directory where this file is located
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# Define absolute paths for templates, static, and uploads
+TEMPLATE_FOLDER = os.path.join(APP_ROOT, 'templates')
+STATIC_FOLDER = os.path.join(APP_ROOT, 'static')
+UPLOAD_FOLDER = os.path.join(APP_ROOT, 'uploads')
+
+# Initialize the Flask app with the absolute paths
+app = Flask(__name__, template_folder=TEMPLATE_FOLDER, static_folder=STATIC_FOLDER)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 ALLOWED_EXTENSIONS = {'pdf'}
